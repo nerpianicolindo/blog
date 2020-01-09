@@ -20,6 +20,15 @@ Route::get('/', function () {
 Route::get('posts', function (){
 });
 
-Route::get('admin', function (){
+Route::get('home', function (){
     return view('admin.dashboard');
-});
+})->middleware('auth');
+
+//Rutas de login
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+//Rutas de registro
+/*$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+$this->post('register', 'Auth\RegisterController@register');*/
