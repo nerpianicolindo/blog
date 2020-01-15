@@ -29,14 +29,36 @@
                 <div class="row">
                     {{ csrf_field() }}
                     <div class="col-md-8">
-                        <div class="card card-primary">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Título del post</label>
                                     <input type="text" name="title" class="form-control" placeholder="Escribe el título del post">
                                     <div class="form-group">
-                                        <label for="body">Contenido del post</label>
-                                        <textarea class="form-control" name="body" rows="10" placeholder="Escribe el texto del post"></textarea>
+                                        <div class="card card-outline card-info">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    Contenido del post
+                                                </h3>
+                                                <!-- tools box -->
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool btn-sm" data-card-widget="collapse" data-toggle="tooltip"
+                                                            title="Collapse">
+                                                        <i class="fas fa-minus"></i></button>
+                                                    <button type="button" class="btn btn-tool btn-sm" data-card-widget="remove" data-toggle="tooltip"
+                                                            title="Remove">
+                                                        <i class="fas fa-times"></i></button>
+                                                </div>
+                                                <!-- /. tools -->
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body pad">
+                                                <div class="mb-3">
+                                                    <textarea class="form-control textarea" name="body" placeholder="Escribe el texto del post"
+                                                      style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,6 +92,18 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>Multiple</label>
+                                    <select class="select2" multiple="multiple" data-placeholder="Select a State" style="width: 100%;">
+                                        <option>Alabama</option>
+                                        <option>Alaska</option>
+                                        <option>California</option>
+                                        <option>Delaware</option>
+                                        <option>Tennessee</option>
+                                        <option>Texas</option>
+                                        <option>Washington</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="excerpt">Extracto del post</label>
                                     <textarea class="form-control" name="excerpt" placeholder="Escribe un extracto del post"></textarea>
                                 </div>
@@ -89,12 +123,21 @@
 @push('styles')
     <!-- daterange picker -->
     <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="/adminlte/plugins/summernote/summernote-bs4.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 @endpush
 
 @push('scripts')
+    <!-- Select2 -->
+    <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
     <!-- date-range-picker -->
     <script src="/adminlte/plugins/moment/moment.min.js"></script>
     <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- Summernote -->
+    <script src="/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
     <script>
         $(function () {
             //Date range picker with time picker
@@ -104,6 +147,8 @@
                 minYear: 2020,
                 maxYear: parseInt(moment().format('YYYY'),10)
             })
+            $('.select2').select2()
+            $('.textarea').summernote()
         });
     </script>
 @endpush
