@@ -45,10 +45,6 @@
                     <div class="col-md-4">
                         <div class="card card-primary">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="excerpt">Extracto del post</label>
-                                    <textarea class="form-control" name="excerpt" placeholder="Escribe un extracto del post"></textarea>
-                                </div>
                                 <!-- Date range -->
                                 <div class="form-group">
                                     <label>Fecha de publicación</label>
@@ -64,6 +60,22 @@
                                     <!-- /.input group -->
                                 </div>
                                 <!-- /.form group -->
+                                <div class="form-group">
+                                    <label for="category_id">Categorías</label>
+                                    <select name="category_id" class="form-control">
+                                        <option value="">Seleccíona una categoría</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}"> {{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="excerpt">Extracto del post</label>
+                                    <textarea class="form-control" name="excerpt" placeholder="Escribe un extracto del post"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-block">Guardar Post</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,3 +85,25 @@
     </div>
 
 @endsection
+
+@push('styles')
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="/adminlte/plugins/daterangepicker/daterangepicker.css">
+@endpush
+
+@push('scripts')
+    <!-- date-range-picker -->
+    <script src="/adminlte/plugins/moment/moment.min.js"></script>
+    <script src="/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+    <script>
+        $(function () {
+            //Date range picker with time picker
+            $('#published_at').daterangepicker({
+                singleDatePicker: true,
+                showDropdowns: true,
+                minYear: 2020,
+                maxYear: parseInt(moment().format('YYYY'),10)
+            })
+        });
+    </script>
+@endpush
