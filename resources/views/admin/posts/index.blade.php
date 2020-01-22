@@ -13,6 +13,11 @@
             </ol>
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <div class="row mb-2">
+        <div class="col-md-12">
+            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#crearPost"><i class="fa fa-plus"></i> Crear post</button>
+        </div>
+    </div>
 
 @endsection
 
@@ -34,7 +39,7 @@
                     <td>{{ $post->title }}</td>
                     <td>{{ $post->excerpt }}</td>
                     <td>
-                        <a href="#" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                        <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
                         <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-trash-restore"></i></a>
                     </td>
                 </tr>
@@ -66,4 +71,5 @@
             });
         });
     </script>
+
 @endpush
