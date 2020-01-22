@@ -8,6 +8,7 @@ use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 
 class PostsController extends Controller
 {
@@ -37,6 +38,7 @@ class PostsController extends Controller
 
         $post = new Post;
         $post->title = $request->title;
+        $post->slug = Str::slug($post->title);
         $post->body = $request->body;
         $post->excerpt = $request->excerpt;
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;

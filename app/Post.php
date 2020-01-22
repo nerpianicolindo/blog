@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use App\Tag;
 
 class Post extends Model
 {
@@ -24,5 +25,10 @@ class Post extends Model
         $query->whereNotNull('published_at')
             ->where('published_at', '<=', Carbon::now())
             ->latest('published_at');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 }
