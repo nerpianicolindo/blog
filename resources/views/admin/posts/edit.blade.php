@@ -106,6 +106,9 @@
                                     {!! $errors->first('excerpt', '<span class="form-text text-danger">:message</span>') !!}
                                 </div>
                                 <div class="form-group">
+                                    <div class="dropzone" id="dropzone"></div>
+                                </div>
+                                <div class="form-group">
                                     <button type="submit" class="btn btn-primary btn-block">Actualizar Post</button>
                                 </div>
                             </div>
@@ -125,6 +128,7 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/adminlte/plugins/select2/css/select2.min.css">
     <link rel="stylesheet" href="/adminlte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css">
 
     @push('scripts')
         <!-- InputMask -->
@@ -135,7 +139,9 @@
         <script src="/adminlte/plugins/select2/js/select2.full.min.js"></script>
         <!-- Summernote -->
         <script src="/adminlte/plugins/summernote/summernote-bs4.min.js"></script>
-        <script !src="">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.js"></script>
+        <script>
+            Dropzone.autoDiscover = false;
             $(function(){
                 //Date range picker with time picker
                 $('#published_at').daterangepicker({
@@ -147,6 +153,24 @@
                 $('#published_at').val('{{old('published_at', $post->published_at ? $post->published_at->format('m/d/Y'): null)}}');
                 $('.textarea').summernote();
                 $('.select2').select2();
+
+                var photos = new Dropzone('.dropzone', {
+                    url: '/admin/posts/{{ $post->slug }}/photos',
+                    //acceptedFiles: 'image/*',
+                    paramName: 'photo',
+                    //maxFilesize: 2,
+                    headers: {
+                       'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    } ,
+                    dictDefaultMessage: 'Arrastra aqui las fotos'
+                });
+
+                photos.on('error', function (file, res) {
+                    var msg = res.errors.photo[0];
+                    $('.dz-error-message:last > span').text(msg);
+                })
+
+
             });
         </script>
     @endpush
