@@ -9,7 +9,7 @@ $factory->define(Post::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
         'excerpt' => $faker->sentence,
-        'body'  => $faker->paragraph(3),
+        'body' => $faker->paragraph(3),
         'published_at' => $faker->dateTimeThisMonth,
     ];
 });

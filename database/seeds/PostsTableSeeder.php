@@ -1,10 +1,10 @@
 <?php
 
 use App\Category;
-use App\Post;
 use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use App\Post;
 use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
@@ -16,9 +16,10 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        /*$post = new Post;
+        /*
+        $post = new Post;
         $post->title = 'Mi primer post';
-        $post->slug = Str::slug('Mi primer post');
+        $post->slug= Str::slug("Mi primer post");
         $post->excerpt = 'Extracto de mi primer post';
         $post->body = '<p>Contenido de mi primer post</p>';
         $post->published_at = Carbon::now()->subDays(4);
@@ -27,7 +28,7 @@ class PostsTableSeeder extends Seeder
 
         $post = new Post;
         $post->title = 'Mi segundo post';
-        $post->slug = Str::slug('Mi segundo post');
+        $post->slug= Str::slug("Mi segundo post");
         $post->excerpt = 'Extracto de mi segundo post';
         $post->body = '<p>Contenido de mi segundo post</p>';
         $post->published_at = Carbon::now()->subDays(3);
@@ -36,7 +37,7 @@ class PostsTableSeeder extends Seeder
 
         $post = new Post;
         $post->title = 'Mi tercer post';
-        $post->slug = Str::slug('Mi tercer post');
+        $post->slug= Str::slug("Mi tercer post");
         $post->excerpt = 'Extracto de mi tercer post';
         $post->body = '<p>Contenido de mi tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
@@ -45,13 +46,13 @@ class PostsTableSeeder extends Seeder
 
         $post = new Post;
         $post->title = 'Mi cuarto post';
-        $post->slug = Str::slug('Mi cuarto post');
+        $post->slug= Str::slug("Mi cuarto post");
         $post->excerpt = 'Extracto de mi cuarto post';
         $post->body = '<p>Contenido de mi cuarto post</p>';
-        $post->published_at = Carbon::now()->subDays(1);
+        $post->published_at = Carbon::now()->addDays(1);
         $post->category_id = 1;
-        $post->save();*/
-
+        $post->save();
+        */
 
         $categories = Category::all();
         $categories->each(function ($c){
@@ -61,9 +62,9 @@ class PostsTableSeeder extends Seeder
                 $p->slug = Str::slug($p->title);
                 $p->save();
                 $tags = Tag::all()->pluck('id')->toArray();
-                $p->tags()->attach(\Illuminate\Support\Arr::random($tags, 2));
-
+                $p->tags()->attach(\Illuminate\Support\Arr::random($tags,2));
             });
+
         });
     }
 }

@@ -25,25 +25,26 @@
     <h3>Listado de posts</h3>
     <table id="posts-table" class="table table-bordered table-striped">
         <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titulo</th>
-                <th>Extracto</th>
-                <th>Acciones</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Extracto</th>
+            <th>Acciones</th>
+        </tr>
         </thead>
         <tbody>
-            @foreach($posts as $post)
-                <tr>
-                    <td>{{ $post->id }}</td>
-                    <td>{{ $post->title }}</td>
-                    <td>{{ $post->excerpt }}</td>
-                    <td>
-                        <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                        <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-trash-restore"></i></a>
-                    </td>
-                </tr>
-            @endforeach
+        @foreach($posts as $post)
+            <tr>
+                <td>{{ $post->id }}</td>
+                <td>{{ $post->title }}</td>
+                <td>{{ $post->excerpt }}</td>
+                <td>
+                    <a href="{{ route('posts.show', $post) }}" class="btn btn-xs btn-primary" target="_blank"><i class="fa fa-eye"></i></a>
+                    <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
+                    <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-trash-restore"></i></a>
+                </td>
+            </tr>
+        @endforeach
         </tbody>
     </table>
 @endsection
@@ -64,7 +65,7 @@
             $('#posts-table').DataTable({
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": false,

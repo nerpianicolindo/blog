@@ -4,7 +4,6 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use App\Tag;
 
 class Post extends Model
 {
@@ -18,6 +17,11 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(Photo::class);
     }
 
     public function scopePublished($query)
