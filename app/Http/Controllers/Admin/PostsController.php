@@ -8,7 +8,6 @@ use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
 
 
 class PostsController extends Controller
@@ -18,19 +17,11 @@ class PostsController extends Controller
         $posts = Post::all();
         return view('admin.posts.index', compact('posts'));
     }
-/*
-    public function create()
-    {
-        $tags = Tag::all();
-        $categories = Category::all();
-        return view('admin.posts.create', compact('categories', 'tags'));
-    }
-*/
+
     public function store(Request $request){
         $this->validate($request, ['title' => 'required']);
         $post = new Post;
         $post->title = $request->title;
-        $post->slug = Str::slug($post->title);
         $post->save();
 
         return redirect()->route('admin.posts.edit', $post);
@@ -54,7 +45,6 @@ class PostsController extends Controller
         ]);
 
         $post->title = $request->title;
-        $post->slug = Str::slug($post->title);
         $post->body = $request->body;
         $post->iframe = $request->iframe;
         $post->excerpt = $request->excerpt;
