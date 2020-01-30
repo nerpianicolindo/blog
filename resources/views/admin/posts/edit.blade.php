@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="category_id">Categorías</label>
-                                    <select name="category_id" class="form-control {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
+                                    <select name="category_id" class="form-control select2 {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
                                         <option value="">Seleccione un categoría</option>
                                         @foreach($categories as $category)
                                             <option value="{{ $category->id }}" {{ old('category_id', $post->category_id) == $category->id  ? 'selected' : ''}}> {{ $category->name }}</option>
@@ -176,7 +176,10 @@
                 });
                 $('#published_at').val('{{old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}');
                 $('.textarea').summernote();
-                $('.select2').select2();
+                $('.select2').select2({
+                    tags: true,
+
+                });
 
                 var photos = new Dropzone('.dropzone',{
                    url: '{{ route('admin.posts.photos.store', $post->slug) }}',

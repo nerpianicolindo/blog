@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 
 class Category extends Model
 {
+    protected $fillable = ['name'];
     public function posts()
     {
         return $this->hasMany(Post::class);
@@ -20,7 +21,7 @@ class Category extends Model
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;
-        $this->attributes['url'] = Str::slug('name');
+        $this->attributes['url'] = Str::slug($name);
     }
 
 }

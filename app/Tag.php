@@ -20,6 +20,6 @@ class Tag extends Model
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;
-        $this->attributes['url'] = Str::slug('name');
+        $this->attributes['url'] = Str::slug($name);
     }
 }

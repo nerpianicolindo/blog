@@ -36,6 +36,7 @@ class PostsController extends Controller
 
     public function update(Request $request, Post $post)
     {
+        //dd($request->all());
         $this->validate($request, [
                 'title' => 'required',
                 'body' => 'required',
@@ -49,7 +50,9 @@ class PostsController extends Controller
         $post->iframe = $request->iframe;
         $post->excerpt = $request->excerpt;
         $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
-        $post->category_id = $request->category_id;
+        $post->category_id = Category::find($cat = $request->category_id)
+                                ? $cat
+                                : Category::create(['name'=> $cat])->id;
         $post->update();
 
         $post->tags()->sync($request->tags);
