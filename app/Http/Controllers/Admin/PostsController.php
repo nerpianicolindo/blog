@@ -55,7 +55,11 @@ class PostsController extends Controller
                                 : Category::create(['name'=> $cat])->id;
         $post->update();
 
-        $post->tags()->sync($request->tags);
+        foreach ($request->tags as $tag) {
+            $tags[] = ($t = Tag::find($tag)) ? $t->id : Tag::create(['name' => $tag])->id;
+        }
+
+        $post->tags()->sync($tags);
 
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'El post ha sido actualizado correctamente');
     }
