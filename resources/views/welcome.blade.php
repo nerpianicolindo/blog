@@ -10,11 +10,11 @@
         @foreach($posts as $post)
             <article class="post">
                 @if($post->photos->count() === 1)
-                    <figure><img src="{{ $post->photos->first()->url }}" alt="Imagen no disponible" class="img-responsive"></figure>
+                    <figure><img src="{{ Storage::url($post->photos->first()->url) }}" alt="Imagen no disponible" class="img-responsive"></figure>
                 @elseif($post->photos->count() > 1)
                     <div class="gallery-photos masonry">
                         @foreach($post->photos->take(4) as $photo)
-                            <figure><img src="{{ $photo->url }}" alt="Imagen no disponible" class="img-responsive"></figure>
+                            <figure><img src="{{ Storage::url($photo->url) }}" alt="Imagen no disponible" class="img-responsive"></figure>
                             @if($loop->iteration === 4)
                                 <div class="overlay">
                                     {{ $post->photos->count() }} fotos

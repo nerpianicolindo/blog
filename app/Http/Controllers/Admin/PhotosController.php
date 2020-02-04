@@ -16,11 +16,8 @@ class PhotosController extends Controller
             'photo' => 'required | image | max:2048'
         ]);
 
-        $photo = $request->file('photo')->store('public');
-
-        Photo::create([
-           'post_id' => $post->id,
-           'url' => Storage::url($photo)
+        $post->photos()->create([
+            'url' => $request->file('photo')->store('posts', 'public')
         ]);
     }
 
