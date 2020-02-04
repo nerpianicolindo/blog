@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\Tag;
 use Carbon\Carbon;
@@ -34,33 +35,14 @@ class PostsController extends Controller
         return view('admin.posts.edit', compact('post','categories','tags'));
     }
 
-    public function update(Request $request, Post $post)
+    public function update(StorePostRequest $request, Post $post)
     {
-        //dd($request->all());
-        $this->validate($request, [
-                'title' => 'required',
-                'body' => 'required',
-                'excerpt' => 'required',
-                'category_id' => 'required',
-                'tags' => 'required'
-        ]);
+        $post->update($request->all());
 
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->iframe = $request->iframe;
-        $post->excerpt = $request->excerpt;
-        $post->published_at = $request->published_at ? Carbon::parse($request->published_at) : null;
-        $post->category_id = Category::find($cat = $request->category_id)
-                                ? $cat
-                                : Category::create(['name'=> $cat])->id;
-        $post->update();
+        $post->syncTags($request->tags);
 
-        foreach ($request->tags as $tag) {
-            $tags[] = ($t = Tag::find($tag)) ? $t->id : Tag::create(['name' => $tag])->id;
-        }
-
-        $post->tags()->sync($tags);
-
-        return redirect()->route('admin.posts.edit', $post)->with('flash', 'El post ha sido actualizado correctamente');
+        return redirect()
+            ->route('admin.posts.edit', $post)
+            ->with('flash', 'El post ha sido actualizado correctamente');
     }
 }
