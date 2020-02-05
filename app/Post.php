@@ -11,6 +11,16 @@ class Post extends Model
     protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt'];
     protected $dates = ['published_at'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function(Post $post) {
+            $post->photos->each->delete();
+            $post->tags()->detach();
+        });
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

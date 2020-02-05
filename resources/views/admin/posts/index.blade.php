@@ -41,7 +41,11 @@
                 <td>
                     <a href="{{ route('posts.show', $post) }}" class="btn btn-xs btn-primary" target="_blank"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                    <a href="#" class="btn btn-xs btn-danger"><i class="fa fa-trash-restore"></i></a>
+                    <form action="{{ route('admin.post.destroy')}}"  method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar?')"><i class="fa fa-trash-restore"></i></button>
+                    </form>
                 </td>
             </tr>
         @endforeach

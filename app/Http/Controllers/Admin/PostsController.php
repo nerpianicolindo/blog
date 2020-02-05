@@ -6,9 +6,9 @@ use App\Category;
 use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\Tag;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use function foo\func;
 
 
 class PostsController extends Controller
@@ -20,7 +20,7 @@ class PostsController extends Controller
     }
 
     public function store(Request $request){
-        $this->validate($request, ['title' => 'required']);
+        $this->validate($request, ['title' => 'required | min:3']);
         $post = new Post;
         $post->title = $request->title;
         $post->save();
@@ -44,5 +44,11 @@ class PostsController extends Controller
         return redirect()
             ->route('admin.posts.edit', $post)
             ->with('flash', 'El post ha sido actualizado correctamente');
+    }
+
+    public function destroy (Post $post)
+    {
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('flash', 'El post ha sido eliminado');
     }
 }

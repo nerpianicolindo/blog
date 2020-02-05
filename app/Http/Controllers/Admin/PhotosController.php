@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Photo;
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PhotosController extends Controller
 {
@@ -24,8 +23,6 @@ class PhotosController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
-        $photoPath = str_replace('storage', 'public', $photo->url);
-        Storage::delete($photoPath);
         return back()->with('flash', 'Foto eliminada');
     }
 }
