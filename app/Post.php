@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt'];
+    protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt', 'user_id'];
     protected $dates = ['published_at'];
 
     public static function boot()
@@ -19,6 +19,31 @@ class Post extends Model
             $post->photos->each->delete();
             $post->tags()->detach();
         });
+    }
+
+    public static function create(array $attributes = [])
+    {
+        $post = static::query()->create($attributes);
+
+        $post->generateSlug();
+
+        return $post;
+    }
+
+    public function generateSlug()
+    {
+        $slug = Str::slug($this->title);
+
+        if (static::whereSlug($slug)->exists()) {
+            $slug .= '-' . $this->id;
+        }
+        $this->slug = $slug;
+        $this->save();
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function category()
@@ -43,15 +68,14 @@ class Post extends Model
             ->latest('published_at');
     }
 
+    public function isPublished()
+    {
+        return ! is_null($this->published_at) && $this->published_at < today();
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';
-    }
-
-    public function setTitleAttribute($title)
-    {
-        $this->attributes['title'] = $title;
-        $this->attributes['slug'] = Str::slug($title);
     }
 
     public function setPublishedAtAttribute($published_at)

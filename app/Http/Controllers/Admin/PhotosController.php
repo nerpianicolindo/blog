@@ -23,6 +23,7 @@ class PhotosController extends Controller
     public function destroy(Photo $photo)
     {
         $photo->delete();
+
         return back()->with('flash', 'Foto eliminada');
     }
 }

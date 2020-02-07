@@ -5,7 +5,6 @@ use App\Tag;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use App\Post;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostsTableSeeder extends Seeder
@@ -18,6 +17,7 @@ class PostsTableSeeder extends Seeder
     public function run()
     {
         Storage::disk('public')->deleteDirectory('posts');
+
         $categories = Category::all();
         $categories->each(function ($c){
             $posts = factory(Post::class, 10)->make();

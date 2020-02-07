@@ -206,23 +206,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script src="/adminlte/plugins/datatables/jquery.dataTables.js"></script>
         <script src="/adminlte/plugins/datatables-bs4/js/datatables.bootstrap4.js"></script>
         <!-- Custom css -->
+        <script>
+            @unless(request()->is('admin/posts/*'))
+                @include('admin.posts.create')
+            @endunless
+        </script>
         @stack('scripts')
         <!-- AdminLTE App -->
         <script src="/adminlte/dist/js/adminlte.min.js"></script>
-        @include('admin.posts.create')
-        <script>
-            @unless(request()->is('admin/posts/*'))
-            if(window.location.hash==='#create') {
-                $('#crearPost').modal('show');
-            }
-            $('#crearPost').on('hide.bs.modal', function() {
-                window.location.hash = '#';
-            });
-            $.('#crearPost').on('shown.bs.modal', function () {
-                $('#post-title').focus();
-                window.location.hash = '#create';
-            })
-            @endunless    
-        </script>
+
     </body>
 </html>

@@ -8,7 +8,7 @@ use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use function foo\func;
+use illuminate\Support\Str;
 
 
 class PostsController extends Controller
@@ -21,10 +21,10 @@ class PostsController extends Controller
 
     public function store(Request $request){
         $this->validate($request, ['title' => 'required | min:3']);
-        $post = new Post;
-        $post->title = $request->title;
-        $post->save();
-
+        $post = Post::create([
+            'title' =>  $request->title,
+            'user_id' => auth()->user()->id
+        ]);
         return redirect()->route('admin.posts.edit', $post);
     }
 
