@@ -14,7 +14,7 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
-
+                <p class="d-block text-white">{{ auth()->user()->roles()->first()->name }}</p>
             </div>
         </div>
 
