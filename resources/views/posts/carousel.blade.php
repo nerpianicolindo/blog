@@ -1,7 +1,7 @@
 <div id="carousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        @foreach($post->photos as $photo)
-        <li data-target="#carousel" data-slide-to="0" class="{{ $loop->iteration === 1 ? 'active' : '' }}"></li>
+        @foreach($post->photos as $rallica)
+            <li data-target="#carousel" data-slide-to="{{ $rallica }}" class="{{ $loop->iteration === 1 ? 'active' : ' ' }}"></li>
         @endforeach
     </ol>
     <div class="carousel-inner">

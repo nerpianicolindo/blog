@@ -22,19 +22,19 @@
             <h3 class="card-title">Editar un post nuevo</h3>
         </div>
         <div class="card-body">
-            @if($post->photos->count() > 0)
+            @if($post->photos->count()>0)
                 <div class="row">
-                @foreach($post->photos as $photo)
-                    <div class="col-md-2">
-                        <form action="{{ route('admin.photos.destroy', $photo) }}" method="post" class="form-inline">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-danger btn-xs" style="position: absolute"><i class="fa fa-times-circle"></i></button>
-                            <img src="{{ url($photo->url) }}" alt="Imagen no disponible" class="img-responsive img-thumbnail">
-                        </form>
-                    </div>
-                @endforeach
-            </div>
+                    @foreach($post->photos as $photo)
+                        <div class="col-md-2">
+                            <form action="{{ route('admin.photos.destroy', $photo) }}" method="post" class="form-inline">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger btn-xs" style="position: absolute"><i class="fa fa-times-circle"></i></button>
+                                <img src="{{ Storage::url($photo->url) }}" class="img-responsive img-thumbnail">
+                            </form>
+                        </div>
+                    @endforeach
+                </div>
             @endif
             <form action="{{ route('admin.posts.update', $post) }}" method="post">
                 @csrf
@@ -74,8 +74,8 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Audio o vídeo embebido del post</label>
-                                            <textarea name="iframe" rows="4" class="form-control {{ $errors->has('iframe') ? 'is-invalid' : '' }}" placeholder="Añade el iframe del video o audio"
-                                            >{{ old('iframe', $post->iframe) }}</textarea>
+                                            <textarea name="iframe" rows="4" class="form-control {{ $errors->has('iframe') ? 'is-invalid' : '' }}"
+                                                      placeholder="Añade el iframe del video o audio">{{ old('iframe', $post->iframe) }}</textarea>
                                             {!! $errors->first('iframe','<span class="form-text text-danger">:message</span>') !!}
                                         </div>
                                     </div>
@@ -177,8 +177,7 @@
                 $('#published_at').val('{{old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : null) }}');
                 $('.textarea').summernote();
                 $('.select2').select2({
-                    tags: true,
-
+                    tags: true
                 });
 
                 var photos = new Dropzone('.dropzone',{

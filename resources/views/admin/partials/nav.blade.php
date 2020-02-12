@@ -14,6 +14,7 @@
             </div>
             <div class="info">
                 <a href="#" class="d-block">{{ auth()->user()->name }}</a>
+
             </div>
         </div>
 
@@ -46,7 +47,7 @@
                         </li>
                         <li class="nav-item">
                             @if(request()->is('admin/posts/*'))
-                                <a href="{{ route('admin.posts.index', '#create') }}" class="nav-link {{ request()->is('admin/posts/create') ? 'active' : '' }}">
+                                <a href="{{ route('admin.posts.index', '#create')}}" class="nav-link {{ request()->is('admin/posts/create') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Crear un post</p>
                                 </a>

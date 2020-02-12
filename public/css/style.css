@@ -48,7 +48,6 @@ header nav li a:hover{
     color: inherit;
     font-size: inherit;
 }
-
 .post figure{
 	margin:0;
 }
@@ -71,12 +70,10 @@ header nav li a:hover{
 .post .tag{
 	margin: 0 5px;
 }
-
 .post .tag a{
     color: inherit;
     font-size: inherit;
 }
-
 .post footer{
 	margin-top: 45px;
 	background: none;
@@ -278,6 +275,16 @@ a.btn-bar{
           top: 18px;
           right: 7px;
 
+      }
+
+      .overlay{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          color: white;
+          font-size: 30px;
+          background-color: rgba(0,0,0, .7);
       }
 
 

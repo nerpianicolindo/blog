@@ -18,10 +18,10 @@ class Tag extends Model
     {
         return 'url';
     }
-
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;
         $this->attributes['url'] = Str::slug($name);
+
     }
 }

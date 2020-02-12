@@ -16,14 +16,13 @@ class PhotosController extends Controller
         ]);
 
         $post->photos()->create([
-            'url' => $request->file('photo')->store('posts', 'public')
+            'url' => $request->file('photo')->store('posts','public')
         ]);
     }
 
     public function destroy(Photo $photo)
     {
         $photo->delete();
-
         return back()->with('flash', 'Foto eliminada');
     }
 }

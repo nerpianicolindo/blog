@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
     return [
-        'name' => rtrim($faker->sentence(3, 'true'),'.'),
+        'name' => rtrim($faker->sentence(2, 'true'), '.'),
     ];
 });

@@ -3,8 +3,7 @@
 @section('header')
     <div class="row mb-2">
         <div class="col-sm-6">
-            <h1 class="m-0 text-dark">POSTS <small>Listado completo de posts</small></h1>
-
+            <h1 class="m-0 text-dark">POSTS <small> Listado</small></h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -15,19 +14,18 @@
     </div><!-- /.row -->
     <div class="row mb-2">
         <div class="col-md-12">
-            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#crearPost"><i class="fa fa-plus"></i> Crear post</button>
+            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#crearPost">
+                <i class="fa fa-plus"></i> Crear post </button>
         </div>
     </div>
-
 @endsection
 
 @section('content')
-    <h3>Listado de posts</h3>
     <table id="posts-table" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Titulo</th>
+            <th>Título</th>
             <th>Extracto</th>
             <th>Acciones</th>
         </tr>
@@ -39,12 +37,14 @@
                 <td>{{ $post->title }}</td>
                 <td>{{ $post->excerpt }}</td>
                 <td>
-                    <a href="{{ route('posts.show', $post) }}" class="btn btn-xs btn-primary" target="_blank"><i class="fa fa-eye"></i></a>
+                    <a href="{{ route('posts.show', $post->slug) }}" class="btn btn-xs btn-success" target="_blank"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.posts.edit', $post->slug) }}" class="btn btn-xs btn-info"><i class="fa fa-pencil-alt"></i></a>
-                    <form action="{{ route('admin.post.destroy')}}"  method="post">
+                    <form action="{{ route('admin.posts.destroy', $post) }}" method="post" class="d-inline">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar?')"><i class="fa fa-trash-restore"></i></button>
+                        <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este post?')">
+                            <i class="fa fa-trash"></i>
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -56,7 +56,6 @@
 @push('styles')
     <!-- DataTables -->
     <link rel="stylesheet" href="/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.css">
-
 @endpush
 
 @push('scripts')
@@ -76,5 +75,4 @@
             });
         });
     </script>
-
 @endpush
