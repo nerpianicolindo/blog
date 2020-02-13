@@ -25,22 +25,24 @@ class UsersTableSeeder extends Seeder
         $admin = new User;
         $admin->name = "alvaro";
         $admin->email = "alvaro@gmail.com";
-        $admin->password = bcrypt("123456");
+        $admin->password = "123456";
         $admin->save();
         $admin->assignRole($adminRole);
+        $admin->assignRole($writeRole);
 
         $writer = new User;
         $writer->name = "batnu";
         $writer->email = "batnusan@gmail.com";
-        $writer->password = bcrypt("123456");
+        $writer->password = "123456";
         $writer->save();
         $writer->assignRole($writeRole);
 
         $admin = new User;
         $admin->name = "Pepe";
         $admin->email = "pepe@email.es";
-        $admin->password = bcrypt("123456");
+        $admin->password = "123456";
         $admin->save();
+        $admin->assignRole($writeRole);
 
         $users = factory(User::class, 8)->make();
 

@@ -30,7 +30,8 @@
                             Inicio
                         </p>
                     </a>
-                </li>                <li class="nav-item has-treeview menu-open">
+                </li>
+                <li class="nav-item has-treeview menu-open">
                     <a href="#" class="nav-link {{ request()->is('admin/posts*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
@@ -60,7 +61,29 @@
                         </li>
                     </ul>
                 </li>
-
+                <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>
+                            Usuarios
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Ver todos los usuarios</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                                <a href="{{ route('admin.users.index')}}" class="nav-link {{ request()->is('admin/users/create') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Crear un usuario</p>
+                                </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
