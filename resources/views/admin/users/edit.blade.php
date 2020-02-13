@@ -46,7 +46,48 @@
             </div>
         </div>
         <div class="col-md-6">
-
+            <div class="card card-primary">
+                <div class="card-header with-border">
+                    <h3 class="card-title">Roles</h3>
+                </div>
+                <div class="card-body">
+                        <form action="{{ route('admin.users.roles.update', $user) }}" method="post">
+                            @csrf @method('put')
+                        @foreach($roles as $role)
+                            <div class="form-check">
+                                <label>
+                                    <input name="roles" type="checkbox" value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
+                                    {{ $role->name }}
+                                </label>
+                            </div>
+                        @endforeach
+                            <button type="submit" class="btn btn-primary btn-block">Actualizar roles</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card card-primary">
+                <div class="card-header with-border">
+                    <h3 class="card-title">Permisos</h3>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('admin.users.permissions.update', $user) }}" method="post">
+                        @csrf @method('put')
+                        @forelse($roles as $role)
+                            @foreach($role->permissions as $permission)
+                            <div class="form-check">
+                                <label>
+                                    <input name="permission" type="checkbox" value="{{ $permission->id }}" {{ $user->permissions->contains($permission->id) ? 'checked' : '' }}>
+                                    {{ $permission->name }}
+                                </label>
+                            </div>
+                            @endforeach
+                        @empty
+                            <small class="text-muted">No tiene permisos</small>
+                        @endforelse
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar permisos</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

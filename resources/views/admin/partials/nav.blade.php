@@ -76,12 +76,6 @@
                                 <p>Ver todos los usuarios</p>
                             </a>
                         </li>
-                        <li class="nav-item">
-                                <a href="{{ route('admin.users.index')}}" class="nav-link {{ request()->is('admin/users/create') ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Crear un usuario</p>
-                                </a>
-                        </li>
                     </ul>
                 </li>
             </ul>
