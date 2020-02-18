@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
@@ -30,7 +31,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -64,7 +65,8 @@ class UsersController extends Controller
     public function edit(User $user)
     {
         $roles = Role::with('permissions')->get();
-        return view('admin.users.edit', compact('user', 'roles'));
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.edit', compact('user', 'roles', 'permissions'));
     }
 
     /**

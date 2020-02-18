@@ -19,7 +19,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Listado de usuarios</h3>
-            <button class="btn btn-primary float-right"><i class="fa fa-plus"> Crear usuario</i></button>
+            <a href="{{ route('admin.users.create') }}" class="btn btn-primary float-right"><i class="fa fa-plus"> Crear usuario</i></a>
         </div>
         <div class="card-body">
             <table id="users-table" class="table table-bordered table-striped">

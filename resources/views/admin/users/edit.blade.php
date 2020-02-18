@@ -58,6 +58,7 @@
                                 <label>
                                     <input name="roles" type="checkbox" value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
                                     {{ $role->name }}
+                                    <small class="text-muted">{{ $role->permissions->pluck('name')->implode(', ') }}</small>
                                 </label>
                             </div>
                         @endforeach
@@ -72,18 +73,14 @@
                 <div class="card-body">
                     <form action="{{ route('admin.users.permissions.update', $user) }}" method="post">
                         @csrf @method('put')
-                        @forelse($roles as $role)
-                            @foreach($role->permissions as $permission)
+                        @foreach($permissions as $id => $name)
                             <div class="form-check">
                                 <label>
-                                    <input name="permission" type="checkbox" value="{{ $permission->id }}" {{ $user->permissions->contains($permission->id) ? 'checked' : '' }}>
-                                    {{ $permission->name }}
+                                    <input name="permission" type="checkbox" name="roles[]" value="{{ $id }}" {{ $user->permissions->contains($id) ? 'checked' : '' }}>
+                                    {{ $name }}
                                 </label>
                             </div>
-                            @endforeach
-                        @empty
-                            <small class="text-muted">No tiene permisos</small>
-                        @endforelse
+                        @endforeach
                         <button type="submit" class="btn btn-primary btn-block">Actualizar permisos</button>
                     </form>
                 </div>
