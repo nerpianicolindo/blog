@@ -17,7 +17,7 @@ class UsersPermissionsController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $user->permissions()->detacht();
+        $user->permissions()->detach();
 
         $user->givePermissionTo($request->permissions);
 
