@@ -6,6 +6,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -31,7 +32,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        $user = new User;
+        $roles = Role::with('permissions')->get();
+        $permissions = Permission::pluck('name', 'id');
+        return view('admin.users.create',compact('roles', 'permissions', 'user'));
     }
 
     /**
@@ -42,7 +46,22 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'name' => 'required | string | max:50',
+            'email' => 'required | string | email | max:255 | unique:users'
+        ]);
+
+        $data['password'] = Str::random(8);
+
+        $user = User::create($data);
+
+        $user->assignRole($request->roles);
+
+        $user->givePermissionTo($request->permissions);
+
+        UserWasCreated::dispatch($user, $data['password']);
+
+        return redirect()->route('admin.users.index')->withFlash('El usuario ha sido creado correctamente');
     }
 
     /**

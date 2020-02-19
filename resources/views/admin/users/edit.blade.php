@@ -51,18 +51,10 @@
                     <h3 class="card-title">Roles</h3>
                 </div>
                 <div class="card-body">
-                        <form action="{{ route('admin.users.roles.update', $user) }}" method="post">
-                            @csrf @method('put')
-                        @foreach($roles as $role)
-                            <div class="form-check">
-                                <label>
-                                    <input name="roles" type="checkbox" value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'checked' : '' }}>
-                                    {{ $role->name }}
-                                    <small class="text-muted">{{ $role->permissions->pluck('name')->implode(', ') }}</small>
-                                </label>
-                            </div>
-                        @endforeach
-                            <button type="submit" class="btn btn-primary btn-block">Actualizar roles</button>
+                    <form action="{{ route('admin.users.roles.update', $user) }}" method="post">
+                        @csrf @method('put')
+                            @include('admin.roles.checkboxes')
+                        <button type="submit" class="btn btn-primary btn-block">Actualizar roles</button>
                     </form>
                 </div>
             </div>
@@ -73,14 +65,7 @@
                 <div class="card-body">
                     <form action="{{ route('admin.users.permissions.update', $user) }}" method="post">
                         @csrf @method('put')
-                        @foreach($permissions as $id => $name)
-                            <div class="form-check">
-                                <label>
-                                    <input name="permission" type="checkbox" name="roles[]" value="{{ $id }}" {{ $user->permissions->contains($id) ? 'checked' : '' }}>
-                                    {{ $name }}
-                                </label>
-                            </div>
-                        @endforeach
+                        @include('admin.permissions.checkboxes')
                         <button type="submit" class="btn btn-primary btn-block">Actualizar permisos</button>
                     </form>
                 </div>
