@@ -5,9 +5,11 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use SoftDeletes;
     protected $fillable = ['title', 'body', 'iframe', 'published_at', 'category_id', 'excerpt', 'user_id'];
 
     protected $dates = ['published_at'];

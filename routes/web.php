@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('set_language/{lang}', 'Controller@setLanguage')->name('set_language');
+
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('about','PagesController@about')->name('pages.about');
 Route::get('archive', 'PagesController@archive')->name('pages.archive');
@@ -32,9 +34,15 @@ Route::group([
 
     Route::resource('users', 'UsersController', ['as' => 'admin']);
 
-    Route::put('users/{user}/roles', 'UsersRolesController@update')->name('admin.users.roles.update');
+    Route::resource('roles', 'RolesController', ['as' => 'admin']);
 
-    Route::put('users/{user}/permission', 'UsersPermissionsController@update')->name('admin.users.permissions.update');
+    Route::middleware('role:Admin')
+        ->put('users/{user}/roles', 'UsersRolesController@update')
+        ->name('admin.users.roles.update');
+
+    Route::middleware('role:Admin')
+        ->put('users/{user}/permission', 'UsersPermissionsController@update')
+        ->name('admin.users.permissions.update');
 
     Route::post('posts/{post}/photos','PhotosController@store')->name('admin.posts.photos.store');
     Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');

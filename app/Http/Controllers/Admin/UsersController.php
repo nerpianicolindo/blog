@@ -120,6 +120,6 @@ class UsersController extends Controller
         $this->authorize('delete', $user);
         $user->delete();
         return redirect()->route('admin.users.index')
-            ->withFlag('El usuario ' . $user->name . ' ha sido eliminado');
+            ->withFlash('El usuario ' . $user->name . ' ha sido eliminado');
     }
 }

@@ -20,6 +20,8 @@ class CreateCategoriesTable extends Migration
             $table->string('url');
 
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 
