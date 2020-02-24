@@ -24,10 +24,51 @@
             </div>
         </div>
     </article>
+
+    <div class="col-md-10 m-auto pb-3">
+        <div class="card card-primary card-outline text-center">
+            <div class="card-header with-border">
+                <h1>Comentarios</h1>
+                <button class="btn btn-primary" id="comments">Crear comentario</button>
+            </div>
+            <div class="card-body">
+                <div id="create_comments">
+                    {!! Form::open(['action' => ['CommentsController@store', $post->slug], 'method' => 'post']) !!}
+                    {{ Form::bsText('name_user', '', ['placeholder' => 'Inserte su nombre']) }}
+                    {{ Form::bsTextArea('comment', '', ['rows' => '3', 'placeholder' => 'Inserte su comentario']) }}
+                    {{ Form::bsSubmit('Crear comentario', ['class' => 'btn btn-primary']) }}
+                    {!! Form::close() !!}
+                </div>
+                @forelse($post->comments as $comment)
+                    <div class="card card-primary card-outline with-border">
+                        <div class="card-header pt-2">
+                            <strong>{{ $comment->name_user }}</strong>
+                            <small>{{ $comment->created_at }}</small>
+                            @if(auth()->user())
+                                <form action="{{ route('posts.comments.destroy', $comment) }}" method="post" class="d-inline float-right">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-xs btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
+                        <div class="card-body">
+                            <p>{{ $comment->comment }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <p>El post no tiene ningún comentario.</p>
+                @endforelse
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('styles')
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 @endpush
 
 @push('scripts')
@@ -36,5 +77,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
         $('#carousel').carousel()
+        $('#create_comments').hide();
+        $('#comments').click(function() {
+            $('#create_comments').toggle();
+        })
     </script>
 @endpush

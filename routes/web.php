@@ -23,6 +23,10 @@ Route::get('blog/{post}', 'PostsController@show')->name('posts.show');
 Route::get('categories/{category}', 'CategoriesController@show')->name('categories.show');
 Route::get('tags/{tag}', "TagsController@show")->name('tags.show');
 
+//Comentarios
+Route::post('posts/{post}/comments','CommentsController@store')->name('comments.store');
+Route::delete('comments/{comment}', 'CommentsController@destroy')->name('posts.comments.destroy');
+
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
