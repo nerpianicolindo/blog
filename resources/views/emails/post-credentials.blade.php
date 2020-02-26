@@ -4,12 +4,12 @@
 A continuacion mostramos la informacion del post.
 
 @component('mail::table')
-    | Username | Id del post |
+    | Username | Titulo del post |
     | :--------|:--------|
-    |{{ $user->name }} | {{ $post->id }}
+    |{{ $user->name }} | {{ $post->title }}
 @endcomponent
-@component('mail::button', ['url' => ''])
-
+@component('mail::button', ['url' => 'http://blog.local/admin/posts'])
+    Ir a posts
 @endcomponent
 
 Saludos,<br>
