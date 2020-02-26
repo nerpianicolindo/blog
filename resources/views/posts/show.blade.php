@@ -13,6 +13,7 @@
             <div class="divider"></div>
             <div class="image-w-text">
                 {!! $post->body !!}
+                Visitas: {!! $post->visits !!}
             </div>
 
             <footer class="container-flex space-between">

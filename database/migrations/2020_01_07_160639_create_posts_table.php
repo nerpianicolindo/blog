@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->mediumText('excerpt')->nullable();
             $table->mediumText('iframe')->nullable();
             $table->text('body')->nullable();
+            $table->integer('visits')->default(0);
             $table->timestamp('published_at')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->on('categories')->references('id');
