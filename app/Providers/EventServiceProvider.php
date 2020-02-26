@@ -23,6 +23,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\PostVisit' => [
             'App\Listeners\AddVisit',
+        ],
+        'App\Events\PostWasCreated' => [
+            'App\Listeners\SendPostDone',
         ]
     ];
 

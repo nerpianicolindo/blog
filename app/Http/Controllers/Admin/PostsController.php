@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Events\PostWasCreated;
 use App\Http\Requests\StorePostRequest;
 use App\Post;
 use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
@@ -26,6 +28,9 @@ class PostsController extends Controller
 
         $post = Post::create($request->all());
 
+        $user = User::find($post->user_id);
+        $admin = User::admins();
+        PostWasCreated::dispatch($user, $post, $admin);
         return redirect()->route('admin.posts.edit', $post);
     }
 

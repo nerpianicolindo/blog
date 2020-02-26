@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -42,6 +43,18 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public static function admins()
+    {
+        $users = User::all();
+        $admins = array();
+        foreach ($users as $user){
+            if ($user->hasRole('Admin')){
+                $admins[] = $user;
+            }
+        }
+        return $admins;
     }
 
     public function setPasswordAttribute($password)
