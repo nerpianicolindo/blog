@@ -30,7 +30,7 @@ Route::delete('comments/{comment}', 'CommentsController@destroy')->name('posts.c
 Route::group([
     'prefix' => 'admin',
     'namespace' => 'Admin',
-    'middleware' => 'auth'
+    'middleware' => ['auth', 'dashboardAccess']
 ], function (){
     Route::get('/', 'AdminController@index')->name('dashboard');
 
@@ -51,9 +51,12 @@ Route::group([
     Route::post('posts/{post}/photos','PhotosController@store')->name('admin.posts.photos.store');
     Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
     //Resto de rutas administrativas
+
 });
 
-
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 /*
  * Si ponemos Route::auth(); nos pondria todas las rutas de auth
@@ -62,12 +65,6 @@ Route::group([
  * vendor/laravel/framework/src/Illuminate/Routing/Router.php
  * */
 
-
-//Rutas de login
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-
 //Rutas de registro
-//$this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-//$this->post('register', 'Auth\RegisterController@register');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');

@@ -19,6 +19,7 @@ use Faker\Generator as Faker;
 $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
+        'age' => $faker->numberBetween(18,65),
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '123456',

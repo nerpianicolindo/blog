@@ -18,6 +18,10 @@
                                     <input type="text" name="name" value="{{ old('name') }}" class="form-control">
                                 </div>
                                 <div class="form-group">
+                                    <label for="age">Edad: </label>
+                                    <input type="text" name="age" value="{{ old('age') }}" class="form-control">
+                                </div>
+                                <div class="form-group">
                                     <label for="email">Email: </label>
                                     <input type="email" name="email" value="{{ old('email') }}" class="form-control">
                                 </div>
