@@ -52,7 +52,8 @@ class UsersController extends Controller
 
         $data = $this->validate($request, [
             'name' => 'required | string | max:50',
-            'email' => 'required | string | email | max:255 | unique:users'
+            'email' => 'required | string | email | max:255 | unique:users',
+            'age' => 'required'
         ]);
 
         $data['password'] = Str::random(8);

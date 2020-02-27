@@ -29,7 +29,7 @@ class CommentsTableSeeder extends Seeder
         });*/
         $posts = Post::all();
         $posts->each(function ($p){
-           $comments = factory(Comment::class, 5)->make();
+           $comments = factory(Comment::class, 2)->make();
            $p->comments()->saveMany($comments);
         });
 
